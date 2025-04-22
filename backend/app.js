@@ -7,8 +7,8 @@ const verifyToken = require("./middleware/verifyToken");
 const app = express();
 
 app.use(express.json())
-
-app.use("/api",router);
+app.use(cors())
+app.use("/api/auth",router);
 
 
 app.get("/",verifyToken,(req,res)=>{

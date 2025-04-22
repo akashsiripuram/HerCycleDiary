@@ -19,9 +19,10 @@ const UserSchema=mongoose.Schema({
         type:Date,
         default:Date.now()
     },
-    dob:{
-        type:String
-    }
+    updatedAt:{
+        type:Date,
+        default:Date.now()
+    },
 })
 
 const User=mongoose.model("User",UserSchema);
