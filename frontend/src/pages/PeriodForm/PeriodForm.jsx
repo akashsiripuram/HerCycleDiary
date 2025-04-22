@@ -1,77 +1,20 @@
-import { useState } from "react";
-import axios from "axios";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-function PeriodForm() {
-    const [startdate, setStartDate] = useState(new Date().toISOString().split('T')[0]); 
-    const [enddate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
-    const [crampLevel, setCrampLevel] = useState(5); // default value
-    const [notes, setNotes] = useState("");
-    const navigate=useNavigate();
-    const handleSubmit=async (e)=>{
-        e.preventDefault();
-        const periodData={
-            startdate,
-            enddate,
-            crampLevel,
-            notes
-        }
-        console.log(periodData);
-        // send data to backend
-        const response=await axios.fetch("/api/period/add",periodData,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":`Bearer ${localStorage.getItem("token")}` 
-            }
-        })
-        if(response.data.success){
-            toast.success("Period data added successfully");
-        }else{
-            toast.error("Error adding period data");
-        }
-        // navigate to home page
-        navigate("/tracker");
-        
-    }
-    return ( 
-        <div>
-            <h1>Period Form</h1>
-            <input type="date" value={startdate} onChange={
-                (e) => setStartDate(e.target.value) 
-            } required/>
-            <input type="date" value={enddate} onChange={
-                (e) => setEndDate(e.target.value)
-            } />
-            {/* cramp level slider 1-10 with emojis */}
-            <input type="range" min="1" max="10" onChange={(e)=>{
-                setCrampLevel(e.target.value)
-            }} defaultValue="5" className="slider" id="crampLevel" />
-            <label htmlFor="crampLevel">Cramp Level</label>
-            <div className="emoji-slider">
-                <span role="img" aria-label="1">😩</span>
-                <span role="img" aria-label="2">😖</span>
-                <span role="img" aria-label="3">😣</span>
-                <span role="img" aria-label="4">😕</span>
-                <span role="img" aria-label="5">😐</span>
-                <span role="img" aria-label="6">😊</span>
-                <span role="img" aria-label="7">😁</span>
-                <span role="img" aria-label="8">😄</span>
-                <span role="img" aria-label="9">😆</span>
-                <span role="img" aria-label="10">😂</span>
-            </div>
-            {/* notes */}
-            <textarea placeholder="Notes" rows="4" cols="50" onChange={(e)=>{
-                setNotes(e.target.value)
-            }}></textarea>
-            {/* submit button */}
-            <button type="submit" onClick={handleSubmit} className="submit-button">Submit</button>
-            {/* cancel button */}
-            <button type="button" className="cancel-button">Cancel</button>
-           
+import React from 'react';
+import PeriodForm from '../../components/PeriodForm';
 
-        </div>
-     );
-}
+const PeriodTracker = () => {
+  return (
+    <div className="max-w-2xl mx-auto animate-fade-in min-h-screen bg-gray-50 dark:bg-gray-900 ">
+      <div className="mb-8 text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 className="text-3xl font-bold mb-2 text-gray-800 dark:text-white">Track Your Cycle</h1>
+        <p className="text-gray-600 dark:text-gray-300">
+          Log your period details to monitor your menstrual health
+        </p>
+      </div>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-soft p-6 md:p-8 transition-all duration-300 animate-slide-up">
+        <PeriodForm />
+      </div>
+    </div>
+  );
+};
 
-export default PeriodForm;
+export default PeriodTracker;

@@ -5,6 +5,8 @@ import Register from './pages/Auth/register/register'
 import CalendarPage from './pages/Calender/CalenderPage'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Profile from './pages/Profile/Profile'
+import PeriodTracker from './pages/PeriodForm/PeriodForm'
+import Layout from './components/Layout'
 
 function App() {
 
@@ -16,6 +18,11 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/tracker" element={<CalendarPage/>} />
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/log-period' element={
+          <Layout>
+          <PeriodTracker/>
+          </Layout>
+          }/>
 
 
 

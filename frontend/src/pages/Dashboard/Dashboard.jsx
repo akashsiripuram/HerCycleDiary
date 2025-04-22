@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useTheme } from '../../Contexts/ThemeContext'
 import ThemeToggle from '../../components/ThemeToggle'
@@ -28,10 +28,10 @@ function Dashboard() {
   }
   
   const quickActions = [
-    { label: 'Log Period', color: 'primary' },
-    { label: 'Add Symptoms', color: 'secondary' },
-    { label: 'Track Mood', color: 'accent' },
-    { label: 'View Calendar', color: 'success' }
+    { label: 'Log Period', color: 'primary',to:"log-period" },
+    { label: 'Add Symptoms', color: 'secondary',to:"add-symptoms" },
+    { label: 'Track Mood', color: 'accent',to:"track-mood" },
+    { label: 'View Calendar', color: 'success',to:"view-calendar" },
   ]
   let token;
   if (typeof window!=="undefined") {
@@ -157,7 +157,7 @@ function Dashboard() {
             {/* Quick Actions */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {quickActions.map((action, index) => (
-                <button
+                <Link to={`/${action.to}`}
                   key={index}
                   className={`p-4 rounded-xl bg-${action.color}-50 dark:bg-${action.color}-900/20 
                     text-${action.color}-700 dark:text-${action.color}-300 
@@ -165,7 +165,7 @@ function Dashboard() {
                     transition-colors duration-200`}
                 >
                   {action.label}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
