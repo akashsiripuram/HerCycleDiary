@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 app.use("/api/auth",router);
+app.use("/api/period",require("./routes/period.route"));
 
 
 app.get("/",verifyToken,(req,res)=>{

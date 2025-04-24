@@ -8,7 +8,7 @@ const periodSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
   });
 
-const Period=mongoose.model("Period",UserSchema);
+const Period=mongoose.model("Period",periodSchema);
 
 module.exports=Period;
   

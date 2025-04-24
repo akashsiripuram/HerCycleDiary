@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import SliderWithEmojis from './SliderWithEmojis';
 import Button from './ui/Button';
+import axios from 'axios';
+import {toast} from "sonner";
+import { useNavigate } from 'react-router-dom';
 
 const PeriodForm = () => {
   const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
@@ -8,6 +11,7 @@ const PeriodForm = () => {
   const [crampLevel, setCrampLevel] = useState(5);
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,14 +25,33 @@ const PeriodForm = () => {
     };
     
     console.log('Form data submitted:', periodData);
+    try{
+      const response=await axios.post("http://localhost:5000/api/period", periodData, 
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      if(response.data.success){
+        toast.success("Period data saved successfully!");
+        setStartDate(new Date().toISOString().split('T')[0]);
+        setEndDate(new Date().toISOString().split('T')[0]);
+        setCrampLevel(5);
+        setNotes('');
+        navigate('/'); 
+        window.location.reload(); 
+      }
+      else{
+        toast.error("Failed to save period data. Please try again.");
+      }
+    }catch(err){
+      console.error('Error submitting form:', err);
+      toast.error("An error occurred while saving your data. Please try again.");
+    }
     
-    // Simulating API call
-    setTimeout(() => {
-      // Success simulation
-      alert('Period data added successfully!');
-      setIsSubmitting(false);
-      // In a real app, you would use proper toast notifications and navigation
-    }, 1000);
+    
+   
   };
 
   return (
