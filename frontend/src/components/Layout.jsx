@@ -26,14 +26,10 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </header>
-      <main className="min-w-[100vw]">
+      <main className="w-full">
         {children}
       </main>
-      <footer className="py-4 text-center text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
-        <div className="container ">
-          <p>© {new Date().getFullYear()} HerCycleDiary. All rights reserved.</p>
-        </div>
-      </footer>
+      
     </div>
   );
 };
