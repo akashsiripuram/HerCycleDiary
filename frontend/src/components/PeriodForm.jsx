@@ -39,7 +39,7 @@ const PeriodForm = () => {
         setEndDate(new Date().toISOString().split('T')[0]);
         setCrampLevel(5);
         setNotes('');
-        navigate('/'); 
+        navigate('/dashboard'); 
         window.location.reload(); 
       }
       else{

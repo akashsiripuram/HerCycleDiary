@@ -34,11 +34,7 @@ function Dashboard() {
   }, []);
 
   // Calculate next period
-  const nextPeriodDate = new Date(lastPeriod);
-  nextPeriodDate.setDate(nextPeriodDate.getDate() + cycleLength);
-  const daysUntilNextPeriod = Math.ceil(
-    (nextPeriodDate - new Date()) / (1000 * 60 * 60 * 24)
-  );
+ 
   
 
   const handleLogout = () => {
@@ -49,9 +45,9 @@ function Dashboard() {
 
   const quickActions = [
     { label: "Log Period", color: "primary", to: "log-period" },
-    { label: "Add Symptoms", color: "secondary", to: "add-symptoms" },
-    { label: "Track Mood", color: "accent", to: "track-mood" },
-    { label: "View Calendar", color: "success", to: "view-calendar" },
+    { label: "Food Suggestions", color: "primary", to: "food-suggestions" },
+    
+    { label: "Period History", color: "primary", to: "periods" },
   ];
   let token;
   if (typeof window !== "undefined") {
@@ -171,7 +167,7 @@ function Dashboard() {
                     Next Period in
                   </p>
                   <p className="text-2xl font-bold text-primary-600 dark:text-primary-400">
-                    {daysUntilNextPeriod} days
+                   {user.daysUntilNextPeriod!==undefined?`${user.daysUntilNextPeriod} days`:`NA`} 
                   </p>
                 </div>
                 <div className="bg-white dark:bg-gray-800/50 rounded-lg p-4">
@@ -179,14 +175,14 @@ function Dashboard() {
                     Cycle Length
                   </p>
                   <p className="text-2xl font-bold text-secondary-600 dark:text-secondary-400">
-                    {cycleLength} days
+                    {user.averageCycleLength!==null?`${user.averageCycleLength} days`:`NA`}
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {quickActions.map((action, index) => (
                 <Link
                   to={`/${action.to}`}

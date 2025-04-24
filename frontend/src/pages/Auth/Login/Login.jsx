@@ -61,6 +61,9 @@ import FormInput from '../../../components/FormInput'
 import AuthLayout from '../../../components/AuthLayout'
 
 function Login() {
+  if(localStorage.getItem("token")){
+    window.location.href="/dashboard"
+  }
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
@@ -112,7 +115,7 @@ function Login() {
         }
         
         // Redirect to dashboard
-        navigate('/')
+        navigate('/dashboard')
       } else {
         setErrors({ general: response.data.message })
         toast.error(response.data.message)

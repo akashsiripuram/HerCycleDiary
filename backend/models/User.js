@@ -15,6 +15,14 @@ const UserSchema=mongoose.Schema({
         type:String,
         required:true,
     },
+    averagePeriodLength: { type: Number, default: null },
+  averageCycleLength: { type: Number, default: null },
+  daysUntilNextPeriod: {
+    type: Number,
+  },
+  nextPeriodDate: {
+    type: Date,
+  },
     createdAt:{
         type:Date,
         default:Date.now()
