@@ -69,9 +69,8 @@ function FoodSuggestions() {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         })
-        
+
         if (response.data.success) {
-            
           setPeriodInfo(response.data)
         } else {
           setError('Failed to fetch period information')
@@ -89,11 +88,16 @@ function FoodSuggestions() {
     fetchPeriodInfo()
   }, [])
 
+  const mapCrampLevelToCategory = (level) => {
+    if (typeof level !== 'number') return 'mild'
+    if (level >= 8) return 'severe'
+    if (level >= 5) return 'moderate'
+    return 'mild'
+  }
+
   const getCrampLevelSuggestions = (crampLevel) => {
-    if (!crampLevel) return foodSuggestions.mild
-    if (crampLevel === 'severe') return foodSuggestions.severe
-    if (crampLevel === 'moderate') return foodSuggestions.moderate
-    return foodSuggestions.mild
+    const category = mapCrampLevelToCategory(crampLevel)
+    return foodSuggestions[category]
   }
 
   return (
@@ -140,20 +144,20 @@ function FoodSuggestions() {
                 <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4">
                   <h3 className="font-medium text-primary-900 dark:text-primary-100">Next Period</h3>
                   <p className="text-lg text-primary-700 dark:text-primary-300">
-                    {user.daysUntilNextPeriod!==null ?`${user.daysUntilNextPeriod} days` : 'Not available'}
+                    {user?.daysUntilNextPeriod !== null ? `${user.daysUntilNextPeriod} days` : 'Not available'}
                   </p>
                 </div>
                 <div className="bg-secondary-50 dark:bg-secondary-900/20 rounded-lg p-4">
                   <h3 className="font-medium text-secondary-900 dark:text-secondary-100">Days Until Next</h3>
                   <p className="text-lg text-secondary-700 dark:text-secondary-300">
-                  {user.daysUntilNextPeriod!==null ?`${user.daysUntilNextPeriod} days` : 'Not available'}
+                    {user?.daysUntilNextPeriod !== null ? `${user.daysUntilNextPeriod} days` : 'Not available'}
                   </p>
                 </div>
-                
+
                 <div className="bg-success-50 dark:bg-success-900/20 rounded-lg p-4">
                   <h3 className="font-medium text-success-900 dark:text-success-100">Cramp Level</h3>
                   <p className="text-lg text-success-700 dark:text-success-300">
-                    {periodInfo?.periods[0].crampLevel || 'None'}
+                    {typeof periodInfo?.periods[0]?.crampLevel === 'number' ? periodInfo.periods[0].crampLevel : 'None'}
                   </p>
                 </div>
               </div>
@@ -165,7 +169,7 @@ function FoodSuggestions() {
                 Recommended Foods
               </h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                {getCrampLevelSuggestions(periodInfo?.crampLevel).map((food, index) => (
+                {getCrampLevelSuggestions(periodInfo?.periods[0]?.crampLevel).map((food, index) => (
                   <div
                     key={index}
                     className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 hover:shadow-md transition-shadow"
