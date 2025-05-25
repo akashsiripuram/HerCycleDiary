@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useTheme } from '../../Contexts/ThemeContext'
+import { useTheme } from '../../contexts/ThemeContext'
 import ThemeToggle from '../../components/ThemeToggle'
 
 function Home() {

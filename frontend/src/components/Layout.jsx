@@ -1,6 +1,6 @@
 import React from 'react';
 import ThemeToggle from './ThemeToggle';
-import { useTheme } from '../Contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Layout = ({ children }) => {

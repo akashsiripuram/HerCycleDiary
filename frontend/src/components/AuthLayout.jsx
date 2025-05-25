@@ -1,4 +1,4 @@
-import { useTheme } from '../Contexts/ThemeContext'
+import { useTheme } from '../contexts/ThemeContext'
 import ThemeToggle from './ThemeToggle'
 
 function AuthLayout({ children, title, subtitle }) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useTheme } from "../../Contexts/ThemeContext";
+import { useTheme } from "../../contexts/ThemeContext";
 import ThemeToggle from "../../components/ThemeToggle";
 import axios from "axios";
 import Calendar from "react-calendar";

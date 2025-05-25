@@ -11,7 +11,7 @@ import Home from './pages/Home/Home'
 import Periods from './pages/periods/period'
 import FoodSuggestions from './pages/FoodSuggestions/FoodSuggestions'
 import ChatBot from './pages/ChatBot/ChatBot'
-import { useTheme } from './Contexts/ThemeContext'
+import { useTheme } from './contexts/ThemeContext'
 import ProtectedRoute from './components/ProtectedRoute'
 function App() {
   const { theme } = useTheme()
