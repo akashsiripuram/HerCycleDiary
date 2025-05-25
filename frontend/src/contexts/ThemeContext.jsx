@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 const ThemeContext = createContext(null)
 
-export function ThemeProvider({ children }) {
+export default function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme')
     return savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
