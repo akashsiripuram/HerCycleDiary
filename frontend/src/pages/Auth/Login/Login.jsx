@@ -61,9 +61,9 @@ import FormInput from '../../../components/FormInput'
 import AuthLayout from '../../../components/AuthLayout'
 
 function Login() {
-  if(localStorage.getItem("token")&&localStorage.getItem("token")!=="undefined"){
-    window.location.href="/dashboard"
-  }
+  // if(localStorage.getItem("token")&&localStorage.getItem("token")!=="undefined"){
+  //   window.location.href="/dashboard"
+  // }
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
